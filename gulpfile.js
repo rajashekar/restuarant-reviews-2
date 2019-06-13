@@ -24,7 +24,7 @@ function createBundle(src) {
     const opts = assign({}, watchify.args, customOpts)
     const b = watchify(browserify(opts));
     b.transform(babelify.configure({
-        stage:1
+        stage:3
     }));
     b.transform(hbsfy);
     b.on('log', plugins.util.log);
@@ -46,7 +46,7 @@ function bundle(b, outputPath) {
       .pipe(plugins.sourcemaps.init({loadMaps: true})) // loads map from browserify file
          // Add transformation tasks to the pipeline here.
       .pipe(plugins.sourcemaps.write('./')) // writes .map file
-      .pipe(gulp.dest('build/public/' + outputDir));
+      .pipe(gulp.dest('build/' + outputDir));
 }
 
 const jsBundles = {
@@ -62,13 +62,21 @@ gulp.task('clean', function(done){
     del(['build'], done)
 });
 
+gulp.task('copy', function(){
+    return mergeStream(
+        gulp.src('app.js').pipe(gulp.dest('build/')),
+        gulp.src('index.html').pipe(gulp.dest('build/')),
+        gulp.src('css/**/*').pipe(gulp.dest('build/css')),
+        gulp.src('img/**/*').pipe(gulp.dest('build/img')),
+        gulp.src('data/**/*').pipe(gulp.dest('build/data'))
+    );
+});
+
 gulp.task('js:browser', function(){
     return mergeStream.apply(null,Object.keys(jsBundles).map(key => bundle(jsBundles[key], key)));
 });
 
 gulp.task('watch', function(){
-    gulp.watch(['js/**/*.js'], ['js:server']);
-
     Object.keys(jsBundles).forEach(function(key) {
         var b = jsBundles[key];
         b.on('update', function() {
@@ -80,6 +88,7 @@ gulp.task('watch', function(){
 gulp.task('server', function(){
     plugins.developServer.listen({
         path: './app.js',
+        cwd: './build',
         args: args
     });
 
@@ -89,5 +98,5 @@ gulp.task('server', function(){
 });
 
 gulp.task('serve', function(callback){
-    runSequence('clean', ['js:browser'], ['server', 'watch'],callback);
+    runSequence('clean', ['js:browser', 'copy'], ['server', 'watch'],callback);
 });
