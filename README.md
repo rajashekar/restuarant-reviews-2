@@ -4,7 +4,6 @@ This Project is done as part of Udacity Front end Web developer course. The purp
 ## Table of Contents
 
 - [Instructions](#instructions)
-- [Demo](#demo)
 - [Contributing](#contributing)
 
 
