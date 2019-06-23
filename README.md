@@ -8,14 +8,15 @@ This Project is done as part of Udacity Front end Web developer course. The purp
 
 
 ## Instructions
-In one terminal, first start the server
+In one terminal, first start the server - clone, change directory, install, run server.
 ```
 git clone https://github.com/udacity/mws-restaurant-stage-2.git
 cd mws-restaurant-stage-2
+npm i
 node server
 ```
 
-In another terminal, start the client
+In another terminal, start the client - clone, change directory, install, run client. 
 ```
 git clone https://github.com/rajashekar/restuarant-reviews-2.git
 cd restuarant-reviews-2
