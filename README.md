@@ -9,24 +9,16 @@ This Project is done as part of Udacity Front end Web developer course. The purp
 
 
 ## Instructions
-To clone this repository
-```
-git clone https://github.com/rajashekar/restuarant-reviews-2.git
-```
-
-And also get the server
-```
-git clone https://github.com/udacity/mws-restaurant-stage-2.git
-```
-
 In one terminal, first start the server
 ```
+git clone https://github.com/udacity/mws-restaurant-stage-2.git
 cd mws-restaurant-stage-2
 node server
 ```
 
 In another terminal, start the client
 ```
+git clone https://github.com/rajashekar/restuarant-reviews-2.git
 cd restuarant-reviews-2
 npm i
 gulp serve
