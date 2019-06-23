@@ -28,6 +28,7 @@ const urlsToCache = [
     'img/8.jpg',  
     'img/9.jpg',  
     'img/10.jpg',
+    'manifest.json',
     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css',
     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js',
     'https://unpkg.com/leaflet@1.3.1/dist/images/marker-icon.png',

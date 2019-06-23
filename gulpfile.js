@@ -67,6 +67,7 @@ gulp.task('copy', function(){
         gulp.src('app.js').pipe(gulp.dest('build/')),
         gulp.src('index.html').pipe(gulp.dest('build/')),
         gulp.src('restaurant.html').pipe(gulp.dest('build/')),
+        gulp.src('manifest.json').pipe(gulp.dest('build/')),
         gulp.src('css/**/*').pipe(gulp.dest('build/css')),
         gulp.src('img/**/*').pipe(gulp.dest('build/img')),
         gulp.src('data/**/*').pipe(gulp.dest('build/data'))
