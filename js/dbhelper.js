@@ -1,4 +1,13 @@
 import idb from 'idb';
+
+/**
+ * create index db
+ */
+const dbPromise = idb.open('restaurant-reviews-db', 1,function(upgradeDb) {
+  const restaurantsStore = upgradeDb.createObjectStore('restaurants', { keyPath: 'id' });
+  restaurantsStore.createIndex('id', 'id');
+});
+
 /**
  * Common database helper functions.
  */
@@ -16,21 +25,59 @@ export default class DBHelper {
   }
 
   /**
+   * 
+   * @param restaurants 
+   * Get restaurants from indexDB
+   */
+  static getRestaurantsFromDB() {
+    return dbPromise.then(function(db){
+      const tx = db.transaction('restaurants');
+      const restuarantsStore = tx.objectStore('restaurants');
+      const idIndex = restuarantsStore.index('id');
+      return idIndex.getAll();
+    });
+  }
+
+  /**
+   * 
+   * @param restaurants
+   * Store restuarants in indexDB
+   */
+  static storeRestaurantsInDB(restaurants) {
+    dbPromise.then(function(db){
+      const tx = db.transaction('restaurants','readwrite');
+      const restaurantsStore = tx.objectStore('restaurants');
+      restaurants.forEach(restuarant => restaurantsStore.put(restuarant));
+      return tx.complete;
+    });
+  }
+
+  /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', DBHelper.DATABASE_URL);
-    xhr.onload = () => {
-      if (xhr.status === 200) { // Got a success response from server!
-        const restaurants = JSON.parse(xhr.responseText);
+    // if restaurants exists in db 
+    var self = this;
+    this.getRestaurantsFromDB().then(function(restaurants){
+      if(restaurants && restaurants.length > 0) {
         callback(null, restaurants);
-      } else { // Oops!. Got an error from server.
-        const error = (`Request failed. Returned status of ${xhr.status}`);
-        callback(error, null);
+        return;
       }
-    };
-    xhr.send();
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', DBHelper.DATABASE_URL);
+      xhr.onload = () => {
+        if (xhr.status === 200) { // Got a success response from server!
+          const restaurants = JSON.parse(xhr.responseText);
+          // store in index db
+          self.storeRestaurantsInDB(restaurants);
+          callback(null, restaurants);
+        } else { // Oops!. Got an error from server.
+          const error = (`Request failed. Returned status of ${xhr.status}`);
+          callback(error, null);
+        }
+      };
+      xhr.send();
+    });
   }
 
   /**

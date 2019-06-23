@@ -2,7 +2,7 @@
 if('serviceWorker' in navigator) {
     // on load register service worker
     window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js') .then(
+        navigator.serviceWorker.register('sw.js') .then(
             function(reg) {
                 console.log("registration success",reg.scope);
             }, 

@@ -18,7 +18,6 @@ const urlsToCache = [
     'js/main.js',
     'js/restaurant_info.js',
     'js/sw_register.js',
-    'data/restaurants.json',
     'img/1.jpg',  
     'img/2.jpg',  
     'img/3.jpg',  

@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path');
 
+
 const app = express()
 const port = 8010
 
@@ -14,5 +15,8 @@ app.get('/', function(req, res) {
 app.use('/css',express.static('css', staticOptions));
 app.use('/js',express.static('js', staticOptions));
 app.use('/img',express.static('img', staticOptions));
+app.use('/index.html',express.static('index.html', staticOptions));
+app.use('/restaurant.html',express.static('restaurant.html', staticOptions));
+app.use('/sw.js',express.static('sw.js', staticOptions));
 
 app.listen(port, () => console.log(`Restaurants app listening on port ${port}!`))
