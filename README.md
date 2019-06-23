@@ -1,5 +1,5 @@
 #  Restaurant Reviews Project
-This Project is done as part of Udacity Front end Web developer course. The purpose of the project is to understand the concepts of responsive website, accessibility and offline first using service worker. 
+This Project is done as part of Udacity Front end Web developer course. The purpose of the project is to understand the concepts of responsive website, accessibility and offline first using service worker and indexedDB API.
 
 ## Table of Contents
 
@@ -14,21 +14,25 @@ To clone this repository
 git clone https://github.com/rajashekar/restuarant-reviews-2.git
 ```
 
-Go to restuarant-reviews-2 directory
+And also get the server
 ```
-cd restuarant-reviews-2
+git clone https://github.com/udacity/mws-restaurant-stage-2.git
 ```
 
-Start webserver 
+In one terminal, first start the server
 ```
-python -m SimpleHTTPServer 8010
+cd mws-restaurant-stage-2
+node server
+```
+
+In another terminal, start the client
+```
+cd restuarant-reviews-2
+npm i
+gulp serve
 ```
 
 Open `http://localhost:8010` in browser
-
-## Demo
-
-![Demo](restaurant_reviews_demo.gif)
 
 ## Contributing
 
